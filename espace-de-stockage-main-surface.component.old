@@ -1,0 +1,36 @@
+<mat-grid-list [cols]="colnum">
+  <mat-grid-tile *ngFor="let repertoire of repertoires" (dblclick)="changeDir(repertoire.nom)">
+    <img src="./icons/folder.png">
+    <mat-grid-tile-footer> {{ repertoire.nom }} </mat-grid-tile-footer>
+  </mat-grid-tile>
+  <mat-grid-tile *ngFor="let fichier of fichiers" >
+    <div [ngSwitch]="fichier.getMimeType()">
+      <a target="_self" (dblclick)="downloadFile(fichier.path, fichier.nom)" download>
+      <div *ngSwitchCase="1">
+        <img src="./icons/music-64.png" *ngIf="iconSize==1">
+        <img src="./icons/music-128.png" *ngIf="iconSize==2">
+      </div>
+      <div *ngSwitchCase="2">
+        <img src="./icons/videos-64.png" *ngIf="iconSize==1">
+        <img src="./icons/videos-128.png" *ngIf="iconSize==2">
+      </div>
+      <div *ngSwitchCase="3">
+        <img src="./icons/pictures-64.png" *ngIf="iconSize==1">
+        <img src="./icons/pictures-128.png" *ngIf="iconSize==2">
+      </div>
+      </a>
+    </div>
+    <mat-grid-tile-footer>{{ fichier.nom }}</mat-grid-tile-footer>
+  </mat-grid-tile>
+</mat-grid-list>
+
+<button mat-fab color="primary" class="espaceDeStockage-floating-action-button">
+  <mat-icon>file_upload</mat-icon>
+</button>
+
+<div *ngFor="let repertoire of repertoires">
+  {{ repertoire.nom }}
+</div>
+<div *ngFor="let fichier of fichiers">
+  {{ fichier.name }}
+</div>

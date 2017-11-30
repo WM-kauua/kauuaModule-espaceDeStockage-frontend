@@ -1,0 +1,10 @@
+<div>Descente</div>
+  <div *ngFor="let clef of lesClefs()">
+    <div>{{ clef }}</div>
+  <mat-progress-bar mode="determinate" [value]="autreListeTelechargement[clef]"></mat-progress-bar>
+  </div>
+<div>Montée</div>
+  <div *ngFor="let clef of upKeys()">
+    <div>{{ clef }}</div>
+  <mat-progress-bar mode="determinate" [value]="upListeChargement[clef]"></mat-progress-bar>
+  </div>

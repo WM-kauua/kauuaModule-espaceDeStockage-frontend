@@ -1,0 +1,40 @@
+<mat-dialog-content>
+  <div *ngIf="type=='popFile'">
+    <img *ngIf="iconSize==1" src="./icons/remove-file-64.png" (click)="removeFile()">
+    <img *ngIf="iconSize==2" src="./icons/remove-file-128.png" (click)="removeFile()">
+    <img *ngIf="iconSize==1" src="./icons/download-64.png" (click)="downloadFile()">
+    <img *ngIf="iconsSize==2" src="./icons/download-128.png" (click)="downloadFile()">
+  </div>
+  <div *ngIf="type=='popDir'">
+    <img *ngIf="iconSize==1" src="./icons/remove-dossier-64.png" (click)="removeDir()">
+    <img *ngIf="iconSize==2" src="./icons/remove-dossier-128.png" (click)="removeDir()">
+  </div>
+  <div *ngIf="type=='popFab'">
+    <img *ngIf="iconSize==1" src="./icons/add-dossier-64.png" (click)="createDir()">
+    <img *ngIf="iconSize==2" src="./icons/add-dossier-128.png" (click)="createDir()">
+    <img *ngIf="iconSize==1" src="./icons/upload-64.png" (click)="uploadFile()">
+    <img *ngIf="iconSize==2" src="./icons/upload-128.png" (click)="uploadFile()">
+  </div>
+  <div *ngIf="createDirPredicat">
+    <form>
+      <mat-form-field>
+        <input matInput [(ngModel)]="dirnameToCreate" placeholder="Nom du dossier" [formControl]="dirnameToCreateControl">
+        <mat-error *ngIf="dirnameToCreateControl.hasError('pattern')">
+          Le nom du dossier doit être composé de caractères alpanumériques. 
+        </mat-error>
+        <mat-error *ngIf="dirnameToCreateControl.hasError('required')">
+          Le nom du dossier est requis.
+        </mat-error>
+      </mat-form-field>
+    </form>
+  </div>
+  <div *ngIf="uploadFilePredicat">
+    <form name="fichierUploadForm">
+      <input type="file" id="fichierAEnvoyer" name="fichier" (change)="fileChangeEvent($event)">
+      <button mat-button [disabled]="!readyToSent" (click)="_uploadFile()">transmet</button>
+    </form>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions *ngIf="createDirPredicat">
+  <button mat-button [disabled]="dirnameToCreateControl.invalid" (click)="_createDir()" [mat-dialog-close]="true">Créer</button>
+</mat-dialog-actions>

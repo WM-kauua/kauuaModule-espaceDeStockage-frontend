@@ -1,0 +1,62 @@
+import { Component }				from '@angular/core' ;
+import { EspaceDeStockageService }		from './espace-de-stockage.service' ;
+import { OnInit, OnDestroy }			from '@angular/core' ;
+import { Repertoire }				from './models/repertoire' ;
+import { Fichier }				from './models/fichier' ;
+import { Subscription }				from 'rxjs/Subscription' ;
+import { BreakpointObserver, Breakpoints } 	from '@angular/cdk/layout' ;
+
+
+@Component({
+  templateUrl: './espace-de-stockage-main-surface.component.html', 
+  styleUrls: ['./espace-de-stockage-main-surface.component.css']
+})
+export class EspaceDeStockageMainSurfaceComponent implements OnInit,OnDestroy {
+
+  private fichiers: Fichier[] = [] ;
+  private repertoires: Repertoire[] = [] ;
+  private _fichiersSubscription: Subscription ;
+  private _repertoiresSubscription: Subscription ;
+  private _breakpointSubscription: Subscription ;
+  private colnum: number = 3 ;
+  private currentPath: string ;
+
+  constructor( private espaceDeStockageService : EspaceDeStockageService, 
+               private breakpointObserver: BreakpointObserver ) {}
+
+  ngOnInit(): void{
+    this.fichiers.splice(0) ;
+    this.repertoires.splice(0);
+    this.currentPath = '.' ;
+    
+    this._fichiersSubscription = this.espaceDeStockageService.listeDeFichiersObs.subscribe( _listedefichiers => {
+      this.fichiers = _listedefichiers ;
+    });
+    this._repertoiresSubscription = this.espaceDeStockageService.listeDeRepertoiresObs.subscribe( _listederepertoires => {
+      this.repertoires = _listederepertoires ;
+      let rep = new Repertoire() ;
+      rep.nom = '..' ;
+      rep.path = '..';
+      this.repertoires.unshift(rep);
+    });
+
+    this.espaceDeStockageService.enterDirectory(this.currentPath);
+
+    this._breakpointSubscription = this.breakpointObserver.observe(
+        [ Breakpoints.HandsetLandscape, 
+          Breakpoints.HandsetPortrait ]).subscri
+
+  }
+
+  ngOnDestroy(): void{
+    this._fichiersSubscription.unsubscribe() ;
+    this._repertoiresSubscription.unsubscribe() ;
+  }
+  
+  changeDir(value: string): void{
+    console.log(' change to : '+value);
+    this.currentPath = value ;
+    this.espaceDeStockageService.enterDirectory(value);
+  }
+
+}
