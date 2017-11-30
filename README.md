@@ -1,0 +1,1 @@
+# kauuaModule-espaceDeStockage-frontend
