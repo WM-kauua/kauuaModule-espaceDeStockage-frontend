@@ -74,5 +74,7 @@ module.exports = () => {
     });
   });
   
-  return 'ok' ;
+  return new Promise( function(resolve, reject){
+    resolve('ok') ;
+  });
 }
