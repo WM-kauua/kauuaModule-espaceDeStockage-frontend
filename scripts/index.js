@@ -29,12 +29,12 @@ const music_icons	= [ path.resolve(__dirname,'../assets/icons','music-32.png'),
 			    path.resolve(__dirname,'../assets/icons','music-128.png'),
 			    path.resolve(__dirname,'../assets/icons','music-256.png'),
 			    path.resolve(__dirname,'../assets/icons','music-512.png') ];
-const photos_icons 	= [ path.resolve(__dirname,'../assets/icons','photo-32.png'),
-			    path.resolve(__dirname,'../assets/icons','photo-48.png'),
-			    path.resolve(__dirname,'../assets/icons','photo-64.png'),
-			    path.resolve(__dirname,'../assets/icons','photo-128.png'),
-			    path.resolve(__dirname,'../assets/icons','photo-256.png'),
-			    path.resolve(__dirname,'../assets/icons','photo-512.png')];
+const photos_icons 	= [ path.resolve(__dirname,'../assets/icons','photos-32.png'),
+			    path.resolve(__dirname,'../assets/icons','photos-48.png'),
+			    path.resolve(__dirname,'../assets/icons','photos-64.png'),
+			    path.resolve(__dirname,'../assets/icons','photos-128.png'),
+			    path.resolve(__dirname,'../assets/icons','photos-256.png'),
+			    path.resolve(__dirname,'../assets/icons','photos-512.png')];
 const remove_dossier_icons = [ path.resolve(__dirname,'../assets/icons','remove-dossier-32.png'),
 			       path.resolve(__dirname,'../assets/icons','remove-dossier-48.png'),
 			       path.resolve(__dirname,'../assets/icons','remove-dossier-64.png'),
@@ -66,11 +66,11 @@ const icons = [ add_dossier_icons, dossier_icons, download_icons, music_icons, p
 
 module.exports = () => {
 
-  const destination_path = path.resolve(__dirname,'../../../../../assets/icons'));
+  const destination_path = path.resolve(__dirname,'../../../../../assets/icons');
 
   icons.forEach( (icon, indice) => {
     icon.forEach( (taille, i) => {
-      copy( taille, destination );
+      copy( taille, path.resolve(destination_path,path.basename(taille)) );
     });
   });
   
